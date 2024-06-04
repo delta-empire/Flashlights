@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         btnFlashLightsOn = findViewById(R.id.flashlights_on);
-        btnFlashLightsOff = findViewById(R.id.flashlight_off);
+        btnFlashLightsOff = findViewById(R.id.flashlight_off_);
         flashLights = new FlashLights(this);
         btnFlashLightsOn.setOnClickListener(v -> lightsOn());
         btnFlashLightsOff.setOnClickListener(v -> lightsOff());

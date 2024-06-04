@@ -3,5 +3,10 @@
 
 ### BAGS
 - [ ] hardcode xml text button
-- [ ] add ic launcher
-- [ ] add picture as button flashlights
+
+
+
+### TASKS
+- [x] Added icon launcher for appliccation FlashLights
+- [ ] Added picture flashlights from application view
+- [ ] Added yandex banner for marketing
