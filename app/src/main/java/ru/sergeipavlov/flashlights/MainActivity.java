@@ -1,20 +1,36 @@
 package ru.sergeipavlov.flashlights;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.yandex.mobile.ads.banner.BannerAdEventListener;
+import com.yandex.mobile.ads.banner.BannerAdSize;
+import com.yandex.mobile.ads.banner.BannerAdView;
+import com.yandex.mobile.ads.common.AdRequest;
+import com.yandex.mobile.ads.common.AdRequestError;
+import com.yandex.mobile.ads.common.ImpressionData;
+
 public class MainActivity extends AppCompatActivity {
 
     FlashLights flashLights;
 
-    Button btnFlashLightsOn;
-    Button btnFlashLightsOff;
+    ImageView iv_flashlight_off;
+    ImageView iv_flashlight_on;
+
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +42,71 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        btnFlashLightsOn = findViewById(R.id.flashlights_on);
-        btnFlashLightsOff = findViewById(R.id.flashlight_off_);
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                return false;
+            }
+        });
+
+        BannerAdView mBannerAdView = findViewById(R.id.banner_ad_view);
+        mBannerAdView.setAdUnitId("demo-banner-yandex");
+        mBannerAdView.setAdSize(BannerAdSize.fixedSize(this, 320, 100));
+
+        final AdRequest adRequest = new AdRequest.Builder().build();
+
+        mBannerAdView.setBannerAdEventListener(new BannerAdEventListener() {
+            @Override
+            public void onAdLoaded() {
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull AdRequestError adRequestError) {
+
+            }
+
+            @Override
+            public void onAdClicked() {
+
+            }
+
+            @Override
+            public void onLeftApplication() {
+
+            }
+
+            @Override
+            public void onReturnedToApplication() {
+
+            }
+
+            @Override
+            public void onImpression(@Nullable ImpressionData impressionData) {
+
+            }
+        });
+
+        mBannerAdView.loadAd(adRequest);
+
+        iv_flashlight_off = findViewById(R.id.iv_flashlight_off);
+        iv_flashlight_on = findViewById(R.id.iv_flashlight_on);
         flashLights = new FlashLights(this);
-        btnFlashLightsOn.setOnClickListener(v -> lightsOn());
-        btnFlashLightsOff.setOnClickListener(v -> lightsOff());
+        iv_flashlight_on.setVisibility(View.INVISIBLE);
+        iv_flashlight_on.setOnClickListener(v -> lightsOff());
+        iv_flashlight_off.setOnClickListener(v -> lightsOn());
     }
 
     private void lightsOn() {
         flashLights.lampOn();
+        iv_flashlight_on.setVisibility(View.VISIBLE);
+        iv_flashlight_off.setVisibility(View.INVISIBLE);
     }
     private void lightsOff() {
         flashLights.lampOff();
+        iv_flashlight_on.setVisibility(View.INVISIBLE);
+        iv_flashlight_off.setVisibility(View.VISIBLE);
     }
 }
