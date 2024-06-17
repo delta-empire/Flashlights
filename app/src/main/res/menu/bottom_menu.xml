@@ -9,4 +9,9 @@
             android:title="Компас"
             android:icon="@drawable/baseline_navigation_24"/>
 
+        <item android:id="@+id/settings"
+            android:title="Настройки"
+            android:icon="@drawable/baseline_settings_24"
+                />
+
 </menu>

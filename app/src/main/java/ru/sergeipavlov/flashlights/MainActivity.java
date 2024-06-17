@@ -1,9 +1,10 @@
 package ru.sergeipavlov.flashlights;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
+    private boolean isAutoLampOn;
+    private SharedPreferences mSettings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.settings) {
+                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                    return true;
+                } else if (item.getItemId() == R.id.navigation) {
+                    startActivity(new Intent(getApplicationContext(), CompassActivity.class));
+                    return true;
+                }
                 return false;
             }
         });
@@ -97,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         iv_flashlight_on.setVisibility(View.INVISIBLE);
         iv_flashlight_on.setOnClickListener(v -> lightsOff());
         iv_flashlight_off.setOnClickListener(v -> lightsOn());
+
     }
 
     private void lightsOn() {
@@ -108,5 +120,19 @@ public class MainActivity extends AppCompatActivity {
         flashLights.lampOff();
         iv_flashlight_on.setVisibility(View.INVISIBLE);
         iv_flashlight_off.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mSettings = getSharedPreferences("FlashLights", MODE_PRIVATE);
+        isAutoLampOn = mSettings.getBoolean("AutoLampON", true);
+
+        if(isAutoLampOn) {
+            flashLights.lampOn();
+        } else {
+            flashLights.lampOff();
+        }
     }
 }
