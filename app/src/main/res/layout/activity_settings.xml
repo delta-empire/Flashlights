@@ -7,41 +7,128 @@
     android:id="@+id/settings">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvEnableAutoStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="Включение при запуске приложения"
+        android:text="Автоматическое включение"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/swEnableAutoStart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/swEnableAutoStart" />
 
     <Switch
-        android:id="@+id/enableAutoStart"
+        android:id="@+id/swEnableAutoStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:theme="@style/SCBSwitch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:theme="@style/SCBSwitch"/>
+        app:layout_constraintTop_toBottomOf="@+id/bottomNavigationView" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvEnableAutoExit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
         android:text="Выключение при выходе"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/swEnableAutoExit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="@+id/swEnableAutoExit" />
 
     <Switch
-        android:id="@+id/stopAboutClose"
+        android:id="@+id/swEnableAutoExit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enableAutoStart" />
+        app:layout_constraintTop_toBottomOf="@+id/swEnableAutoStart"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:theme="@style/SCBSwitch"/>
+
+    <TextView
+        android:id="@+id/tvChooseLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Язык (US/RU)"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/swChooseLanguage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/swChooseLanguage" />
+
+    <Switch
+        android:id="@+id/swChooseLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swEnableAutoExit"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:theme="@style/SCBSwitch"/>
+
+    <TextView
+        android:id="@+id/tvShockFromStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Встряхнуть для переключения"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/swShockFromStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/swShockFromStart" />
+
+    <Switch
+        android:id="@+id/swShockFromStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swChooseLanguage"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:theme="@style/SCBSwitch"/>
+
+    <TextView
+        android:id="@+id/tvChooseTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Тема (светлая/тёмная)"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/swChooseTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/swChooseTheme" />
+
+    <Switch
+        android:id="@+id/swChooseTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swShockFromStart"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:theme="@style/SCBSwitch"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemPaddingTop="0dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/bottom_menu"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

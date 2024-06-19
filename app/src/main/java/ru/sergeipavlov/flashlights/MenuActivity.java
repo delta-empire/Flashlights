@@ -1,8 +1,8 @@
 package ru.sergeipavlov.flashlights;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.activity.EdgeToEdge;
@@ -11,11 +11,25 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class MenuActivity extends AppCompatActivity {
     private SharedPreferences mSettings;
     private SharedPreferences.Editor mEditor;
-    private  boolean isAutoLampOn;
-    Switch switchEnableAutoStart;
+
+    private boolean isEnebleAutoStart;
+    private boolean isEnableAutoExit;
+    private boolean isChooseLanguage;
+    private boolean isShockFromStart;
+    private boolean isChooseTheme;
+
+    Switch swEnableAutoStart;
+    Switch swEnableAutoExit;
+    Switch swChooseLanguage;
+    Switch swShockFromStart;
+    Switch swChooseTheme;
+
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,25 +42,99 @@ public class MenuActivity extends AppCompatActivity {
             return insets;
         });
 
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if(item.getItemId() == R.id.settings) {
+                startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.navigation) {
+                startActivity(new Intent(getApplicationContext(), CompassActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.flaslights) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                return true;
+            }
+            return false;
+        });
+
+        swEnableAutoStart = findViewById(R.id.swEnableAutoStart);
+        swEnableAutoExit = findViewById(R.id.swEnableAutoExit);
+        swChooseLanguage = findViewById(R.id.swChooseLanguage);
+        swShockFromStart = findViewById(R.id.swShockFromStart);
+        swChooseTheme = findViewById(R.id.swChooseTheme);
+
         mSettings = getSharedPreferences("FlashLights", MODE_PRIVATE);
+
         mEditor = mSettings.edit();
 
-        isAutoLampOn = mSettings.getBoolean("AutoLampON", true);
+        isEnebleAutoStart = mSettings.getBoolean("EnableAutoStart", false);
+        isEnableAutoExit = mSettings.getBoolean("EnableAutoExit", false);
+        isChooseLanguage = mSettings.getBoolean("EnableChangelanguage", false);
+        isShockFromStart = mSettings.getBoolean("EnableShockFromStart", false);
+        isChooseTheme = mSettings.getBoolean("ChooseTheme", false);
 
-        switchEnableAutoStart = findViewById(R.id.enableAutoStart);
-        switchEnableAutoStart.setChecked(isAutoLampOn);
+        swEnableAutoStart.setChecked(isEnebleAutoStart);
+        swEnableAutoExit.setChecked(isEnableAutoExit);
+        swChooseLanguage.setChecked(isChooseLanguage);
+        swShockFromStart.setChecked(isShockFromStart);
+        swChooseTheme.setChecked(isChooseTheme);
 
-        switchEnableAutoStart.setOnCheckedChangeListener(
-                new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked) {
-                            mEditor.putBoolean("AutoLampON", true);
-                            isAutoLampOn = true;
-                        } else {
-                            mEditor.putBoolean("AutoLampON", false);
-                            isAutoLampOn = false;
-                        }
+        swEnableAutoStart.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> {
+                    if (isChecked) {
+                        mEditor.putBoolean("EnableAutoStart", true);
+                        isEnebleAutoStart = true;
+                    } else {
+                        mEditor.putBoolean("EnableAutoStart", false);
+                        isEnebleAutoStart = false;
+                    }
+                }
+        );
+
+        swEnableAutoExit.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> {
+                    if (isChecked) {
+                        mEditor.putBoolean("EnableAutoExit", true);
+                        isEnableAutoExit = true;
+                    } else {
+                        mEditor.putBoolean("EnableAutoExit", false);
+                        isEnableAutoExit = false;
+                    }
+                }
+        );
+
+        swChooseLanguage.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> {
+                    if (isChecked) {
+                        mEditor.putBoolean("EnableChangelanguage", true);
+                        isChooseLanguage = true;
+                    } else {
+                        mEditor.putBoolean("EnableChangelanguage", false);
+                        isChooseLanguage = false;
+                    }
+                }
+        );
+
+        swShockFromStart.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> {
+                    if (isChecked) {
+                        mEditor.putBoolean("EnableShockFromStart", true);
+                        isShockFromStart = true;
+                    } else {
+                        mEditor.putBoolean("EnableShockFromStart", false);
+                        isShockFromStart = false;
+                    }
+                }
+        );
+
+        swChooseTheme.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> {
+                    if (isChecked) {
+                        mEditor.putBoolean("ChooseTheme", true);
+                        isChooseTheme = true;
+                    } else {
+                        mEditor.putBoolean("ChooseTheme", false);
+                        isChooseTheme = false;
                     }
                 }
         );

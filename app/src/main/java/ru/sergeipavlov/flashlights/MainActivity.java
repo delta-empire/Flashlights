@@ -52,11 +52,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.settings) {
-                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
-                    return true;
-                } else if (item.getItemId() == R.id.navigation) {
-                    startActivity(new Intent(getApplicationContext(), CompassActivity.class));
-                    return true;
+                startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.navigation) {
+                startActivity(new Intent(getApplicationContext(), CompassActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.flaslights) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                return true;
                 }
                 return false;
             }
@@ -127,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         mSettings = getSharedPreferences("FlashLights", MODE_PRIVATE);
-        isAutoLampOn = mSettings.getBoolean("AutoLampON", true);
+        isAutoLampOn = mSettings.getBoolean("EnableAutoStart", true);
 
         if(isAutoLampOn) {
             flashLights.lampOn();
